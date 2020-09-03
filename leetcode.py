@@ -72,18 +72,26 @@ def threeSum(nums):
     return res
 
 
-def largestRectangleArea(h) -> int:
-    max_area = 0
-    leng = len(h)
-    for i in range(leng):
-        min_h = h[i]
-        for j in range(i, leng):
-            min_h = min(h[j], min_h)
-            max_area = max(min_h * (j - i + 1), max_area)
-            print(max_area, min_h, h[i], h[j], i, j)
-    return max_area
+def largestRectangleArea(heights) -> int:
+    size = len(heights)
+    res = 0
+    heights = [0] + heights + [0]
+    # 先放入哨兵结点，在循环中就不用做非空判断
+    stack = [0]
+    size += 2
+    print(heights)
+
+    for i in range(1, size):
+        print(i, res, stack[-1])
+        while heights[i] < heights[stack[-1]]:
+            cur_height = heights[stack.pop()]
+            cur_width = i - stack[-1] - 1
+            res = max(res, cur_height * cur_width)
+        stack.append(i)
+    print(stack)
+    return res
 
 
 if __name__ == '__main__':
-    list_str = [1]
+    list_str = [6, 7, 5, 2, 4, 5, 9, 3]
     largestRectangleArea(list_str)
