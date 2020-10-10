@@ -2,6 +2,7 @@
 # coding:utf-8
 import numpy as np
 import random
+import time
 
 # 冒泡排序
 
@@ -87,15 +88,53 @@ def mergesort(arr):
 # 快速排序
 
 
+"""
+end：arr的最后一个元素下标
+"""
+
+
+def quicksort(arr, start, end):
+    n = len(arr)
+    if n <= 1 or start >= end or start < 0 or end >= n:
+        return arr
+
+    def partition(arr, start, end):
+        if start >= end:
+            return end
+        p = random.randint(start, end)
+        sorted_i = start
+        arr[end], arr[p] = arr[p], arr[end]
+        for j in range(start, end):
+            if arr[j] < arr[end]:
+                arr[sorted_i], arr[j] = arr[j], arr[sorted_i]
+                sorted_i += 1
+        arr[sorted_i], arr[end] = arr[end], arr[sorted_i]
+        return sorted_i
+    p = partition(arr, start, end)
+    quicksort(arr, start, p - 1)
+    quicksort(arr, p + 1, end)
+    return arr
+
+
 if __name__ == "__main__":
     for i in range(10, 110, 1):
         arr = np.random.permutation(i)
-        # bubble = bubblesort(arr.copy())
+        pre_bubble = time.time()
+        bubble = bubblesort(arr.copy())
         # print(bubble)
-        # insert = insertsort(arr.copy())
+        post_bubble = time.time()
+        insert = insertsort(arr.copy())
+        post_insert = time.time()
         # print(insert)
-        # select = selectsort(arr.copy())
+        select = selectsort(arr.copy())
+        post_select = time.time()
         # print(select)
         merge = mergesort(arr.copy())
-        print(merge)
+        post_merge = time.time()
+        # print(merge)
+        quick = quicksort(arr.copy(), 0, len(arr) - 1)
+        post_quick = time.time()
+        print(
+            f"bubble:{post_bubble-pre_bubble}, insert:{post_insert-post_bubble}, select:{post_select-post_insert}, merge:{post_merge-post_select}, quick:{post_quick-post_merge}")
+        # print(quick)
         # print(arr)
