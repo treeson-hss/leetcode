@@ -117,7 +117,23 @@ def generateParenthesis(n: int):
     return total_l[n]
 
 
+def mySqrt(x: int) -> int:
+    left, right = 0, x
+    while left < right:
+        mid = left + ((right - left) >> 1)
+        print(left, mid, right)
+        if mid * mid <= x:
+            print("lower")
+            left = mid + 1
+        else:
+            print("better")
+            right = mid - 1
+    print(left)
+    return left
+
+
 if __name__ == '__main__':
     # list_str = [6, 7, 5, 2, 4, 5, 9, 3]
     # largestRectangleArea(list_str)
-    generateParenthesis(6)
+    # generateParenthesis(6)
+    mySqrt(5)
