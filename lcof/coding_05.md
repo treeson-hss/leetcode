@@ -43,6 +43,18 @@ class Solution:
 时间复杂度 O(N) ： 遍历使用 O(N) ，每轮添加（修改）字符操作使用 O(1) ；
 空间复杂度 O(N) ： 新建的 list 使用了线性大小的额外空间。
 
-
+```go
+func replaceSpace(s string) string {
+	var res strings.Builder
+    for i:=range s{
+    	if s[i]==' '{
+			res.WriteString("%20")
+		}else {
+			res.WriteByte(s[i])
+		}
+	}
+	return res.String()
+}
+```
 
 
